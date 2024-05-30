@@ -1,1 +1,2 @@
-# words-service
+# words-server
+
