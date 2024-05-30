@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+  job-check:
+    build:
+      context: ./jobcheck
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    depends_on:
+      - job-check
+
+volumes:
+  mongo_data:
